@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: controle-financeiro-api
+server:
+  port: 8081
