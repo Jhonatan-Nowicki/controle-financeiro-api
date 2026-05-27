@@ -36,7 +36,7 @@ public class ContaService {
     public Conta atualizarConta(Long id, Conta contaAtualizada){
         Conta contaExistente = buscarPorId(id);
         if(contaRepository.existsByNomeAndIdNot(contaAtualizada.getNome(), id)){
-            throw new ConflitoException("Já existe uma conta cadastrada com esse nome. ");
+            throw new ConflitoException("Já existe uma conta cadastrada com esse nome.");
         }
         contaExistente.setNome(contaAtualizada.getNome());
         contaExistente.setTipo(contaAtualizada.getTipo());
