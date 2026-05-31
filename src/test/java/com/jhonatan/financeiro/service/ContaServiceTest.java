@@ -1,5 +1,6 @@
 package com.jhonatan.financeiro.service;
 
+import com.jhonatan.financeiro.exception.RecursoNaoEncontradoException;
 import com.jhonatan.financeiro.repository.ContaRepository;
 import com.jhonatan.financeiro.repository.TransacaoRepository;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -51,6 +53,18 @@ class ContaServiceTest {
         BigDecimal saldo = contaService.calcularSaldo(1L);
 
         assertEquals(new BigDecimal("2400.00"), saldo);
+    }
+
+    @Test
+    void deveLancarErroAoBuscarContaInexistente() {
+
+        when(contaRepository.findById(99L))
+                .thenReturn(Optional.empty());
+
+        assertThrows(
+                RecursoNaoEncontradoException.class,
+                () -> contaService.buscarPorId(99L)
+        );
     }
 
 }
