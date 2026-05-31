@@ -5,6 +5,7 @@ import com.jhonatan.financeiro.model.Conta;
 import com.jhonatan.financeiro.service.ContaService;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -40,6 +41,11 @@ public class ContaController {
     @DeleteMapping("/{id}")
     public void desativarConta(@PathVariable Long id){
         contaService.desativarConta(id);
+    }
+
+    @GetMapping("/{id}/saldo")
+    public BigDecimal consultarSaldo(@PathVariable Long id) {
+        return contaService.calcularSaldo(id);
     }
 
 }
